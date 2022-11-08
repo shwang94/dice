@@ -1,0 +1,27 @@
+{
+  "name": "devcamp-lucky-dice-nodejs",
+  "version": "1.0.0",
+  "description": "LuckyDice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/devcamp120.mycamp/thuvvd/review360nodejs/devcamp-lucky-dice-nodejs.git"
+  },
+  "author": "Thu Vong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/devcamp120.mycamp/thuvvd/review360nodejs/devcamp-lucky-dice-nodejs/issues"
+  },
+  "homepage": "https://gitlab.com/devcamp120.mycamp/thuvvd/review360nodejs/devcamp-lucky-dice-nodejs#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
