@@ -79,7 +79,7 @@ const getDice = async (req, res) => {
             //lấy tất cả historydice của user từ mongdb lên
             top3DiceHistories = await diceHistoryModel
                 .find({ user: userObj._id })
-                .sort({ createdAt: 1 })
+                .sort({ createdAt: "desc" })
                 .limit(3)
                 .exec();
 
