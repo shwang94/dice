@@ -1,16 +1,16 @@
-// const express = require('express');
+const express = require('express');
 
-// //import module course controller 
-// const { getAllDiceHistory , getDiceHistoryById , createDiceHistory , updateDiceHistoryById , deleteDiceHistoryById} = require('../controllers/userController')
+//import module course controller 
+const { getAllDiceHistory , getDiceHistoryById , createDiceHistory , updateDiceHistoryById , deleteDiceHistoryById} = require('../controllers/diceHistoryController')
 
-// const diceHistoryRouter = express.Router();
+const diceHistoryRouter = express.Router();
 
-// diceHistoryRouter.get("/dice-histories", getAllDiceHistory );
-// diceHistoryRouter.get("/dice-histories/:diceHistoryId", getDiceHistoryById );
+diceHistoryRouter.get("/dice-histories", getAllDiceHistory );
+diceHistoryRouter.get("/dice-histories/:diceHistoryId", getDiceHistoryById );
 
-// diceHistoryRouter.post("/dice-histories", createDiceHistory );
-// diceHistoryRouter.put("/dice-histories/:diceHistoryId", updateDiceHistoryById );
+diceHistoryRouter.post("/dice-histories", createDiceHistory );
+diceHistoryRouter.put("/dice-histories/:diceHistoryId", updateDiceHistoryById );
 
-// diceHistoryRouter.delete("/dice-histories/:diceHistoryId", deleteDiceHistoryById );
+diceHistoryRouter.delete("/dice-histories/:diceHistoryId", deleteDiceHistoryById );
 
-// module.exports= { diceHistoryRouter};
+module.exports= { diceHistoryRouter};

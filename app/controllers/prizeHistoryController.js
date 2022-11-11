@@ -1,10 +1,10 @@
 // import model 
 const { default: mongoose } = require('mongoose');
-const diceHistoryModel = require('../models/diceHistoryModel');
+const prizeHistoryModel = require('../models/prizeHistoryModel');
 
 //get all
-const getAllDiceHistory = (req, res) => {
-    diceHistoryModel.find((error, data) => {
+const getAllPrizeHistory = (req, res) => {
+    prizeHistoryModel.find((error, data) => {
         if (error) {
             res.status(500).json({
                 message: `Lỗi không thể lấy dữ liệu: ${error.message}`
@@ -17,8 +17,8 @@ const getAllDiceHistory = (req, res) => {
     })   
 }
 //get by id
-const getDiceHistoryById  = (req, res) => {
-    let id = req.params.diceHistoryId; //B1 thu thập
+const getPrizeHistoryById = (req, res) => {
+    let id = req.params.prizeHistoryId; //B1 thu thập
     //B2 check
     if (!mongoose.Types.ObjectId.isValid(id)) {
         res.status(400).json({
@@ -26,7 +26,7 @@ const getDiceHistoryById  = (req, res) => {
         })
     } else {
         //B3
-        diceHistoryModel.findById(id, (error, data) => {
+        prizeHistoryModel.findById(id, (error, data) => {
             if (error) {
                 res.status(500).json({
                     message: `lỗi không thể lấy dữ liệu: ${error.message}`
@@ -41,47 +41,36 @@ const getDiceHistoryById  = (req, res) => {
 }
 
 // post
-const createDiceHistory  = (req, res) => {
+const createPrizeHistory  = (req, res) => {
     let body = req.body; //B1 thu thập
-
-    
-
     //B2 check data
     if (!body.user) {
         return res.status(400).json({
             message: "phải nhập user."
         })
     }
-    if (!body.dice) {
+    if (!body.prize) {
         return res.status(400).json({
-            message: "phải nhập dice."
-        })
-    }
-    if (!Number.isInteger(body.dice) || body.dice < 0 || body.dice > 7) {
-        return res.status(400).json({
-            message: "dice phải là số lớn hơn 0, nhỏ hơn hoặc bằng 6"
+            message: "phải nhập prize."
         })
     }
     
     else {
-    //     //B3 thực hiện thao tác
-    let userId = req.body.userId
+        //B3 thực hiện thao tác
+        let userId = req.body.userId
+        let prizeId = req.body.prizeId
 
-    let diceHistory= {
-        _id : new mongoose.Types.ObjectId(),
-        user : mongoose.Types.ObjectId(userId),
-        dice : Math.floor(6*Math.random())+1,
-        createdAt : Date.now(),
-        updatedAt : Date.now()
-    }
+        let prizeHistory = {
+           
+            user: mongoose.Types.ObjectId(userId),
+            prize: mongoose.Types.ObjectId(prizeId)        
+        }
 
-    //     //create new into mongodb
-    diceHistoryModel.create(diceHistory, 
-                            (error, data) => 
-        {
+        //create new into mongodb
+        prizeHistoryModel.create(prizeHistory, (error, data) => {
             if (error) {
                 return res.status(500).json({
-                    message: `lỗi không thể tạo Dice: ${error.message}`
+                    message: `lỗi không thể tạo prizeHistory: ${error.message}`
                 })
             } else {
                 return res.status(201).json({
@@ -89,12 +78,14 @@ const createDiceHistory  = (req, res) => {
                 })
             }
         });
-}
-}
+    }
 
-const updateDiceHistoryById  = (req, res) => {
+
+};
+
+const updatePrizeHistoryById = (req, res) => {
     //B1 thu thập
-    let id = req.params.diceHistoryId;
+    let id = req.params.prizeHistoryId;
     let body = req.body;
     //B2 check
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -106,20 +97,20 @@ const updateDiceHistoryById  = (req, res) => {
             message: "phải nhập user."
         })
     }
-    else if (!body.dice) {
+    else if (!body.prize) {
         return res.status(400).json({
-            message: "phải nhập dice."
+            message: "phải nhập prize."
         })
     } 
     
     else {
         //B3 trả về
-        let dicehistory = {
+        let prizeHistory = {
            
             user: body.user,
-            dice: body.dice
-        }
-        diceHistoryModel.findByIdAndUpdate(id, dicehistory, { new: true }, (error, data) => {
+            prize: body.prize
+                }        
+                prizeHistoryModel.findByIdAndUpdate(id, prizeHistory, { new: true }, (error, data) => {
             if (error) {
                 return res.status(500).json({
                     message: `lỗi cập nhập không thành công: ${error.message}`
@@ -132,9 +123,9 @@ const updateDiceHistoryById  = (req, res) => {
     }
 };
 
-const deleteDiceHistoryById   = (req, res) => {
+const deletePrizeHistoryById  = (req, res) => {
     //B1
-    let id = req.params.diceHistoryId;
+    let id = req.params.prizeHistoryId;
 
     //B2 check
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -143,18 +134,18 @@ const deleteDiceHistoryById   = (req, res) => {
         })
     } else {
         //B3
-        diceHistoryModel.findByIdAndDelete(id, (error, data) => {
+        prizeHistoryModel.findByIdAndDelete(id, (error, data) => {
             if (error) {
                 res.status(500).json({
                     message: `lỗi xóa không thành công: ${error.message}`
                 })
             } else {
                 res.status(204).json({
-                    data: data.reviews
+                    data: data
                 })
             }
         })
     }
 }
 //export hàm thanh modeule 
-module.exports = { getAllDiceHistory , getDiceHistoryById , createDiceHistory , updateDiceHistoryById , deleteDiceHistoryById }
+module.exports = { getAllPrizeHistory, getPrizeHistoryById, createPrizeHistory, updatePrizeHistoryById, deletePrizeHistoryById }
