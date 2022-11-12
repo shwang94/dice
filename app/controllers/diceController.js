@@ -52,6 +52,11 @@ const getDice = async (req, res) => {
         diceHistory._id = new mongoose.Types.ObjectId();
         diceHistory.user = mongoose.Types.ObjectId(userObj._id);
         diceHistory.dice = Math.floor(6 * Math.random()) + 1;
+        diceHistory.createdAt = Date.now();
+        diceHistory.updatedAt = Date.now();
+        
+        // diceHistory.dice = 4;
+
 
         newDiceHistory = await diceHistory.save();
 
@@ -77,11 +82,7 @@ const getDice = async (req, res) => {
             newVoucherHistory = await voucherHistory.save();
 
             //lấy tất cả historydice của user từ mongdb lên
-            top3DiceHistories = await diceHistoryModel
-                .find({ user: userObj._id })
-                .sort({ createdAt: "desc" })
-                .limit(3)
-                .exec();
+            top3DiceHistories = await diceHistoryModel.find({ user: userObj._id }).sort({ createdAt: "desc" }).exec();
 
             // console.table(top3DiceHistories);
             if (top3DiceHistories[0].dice > 3 && top3DiceHistories[1].dice > 3 && top3DiceHistories[2].dice > 3) {
