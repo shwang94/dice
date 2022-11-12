@@ -30,7 +30,7 @@
 }
 
     .picture-cover {
-        background-image: url("/LuckyDiceImages/cover.jpg");
+        background-image: url("./LuckyDiceImages/cover.jpg");
         min-height: 100px;
         margin: 5px;
     }
@@ -320,7 +320,7 @@
     //Hàm gọi Api
     function callApiServerDice(paramXmlHttpDice, paramUser) {
         console.log("%cBước 3 gọi api ", "color:orange");
-        paramXmlHttpDice.open("POST", "http://localhost:8000/devcamp-lucky-dice/dice");
+        paramXmlHttpDice.open("POST", "/devcamp-lucky-dice/dice", true);
         paramXmlHttpDice.setRequestHeader("Content-Type", gUTF8_TEXT_APPLICATION_HEADER);
         paramXmlHttpDice.send(JSON.stringify(paramUser));
     }
@@ -482,7 +482,7 @@
     //Hàm gọi api history dice
     function callAPIHisDice(paramUser, paramXmlHttp) {
 
-        paramXmlHttp.open("GET",  "http://localhost:8000/devcamp-lucky-dice/dice-history?username=" + paramUser.username, true);
+        paramXmlHttp.open("GET",  "/devcamp-lucky-dice/dice-history?username=" + paramUser.username, true);
         paramXmlHttp.send();
 
 
@@ -490,7 +490,7 @@
     //Hàm gọi Api lịch sử voucher
     function callAPIHisVoucher(paramUser, paramXmlHttp) {
 
-        paramXmlHttp.open("GET", "http://localhost:8000/devcamp-lucky-dice/voucher-history?username=" + paramUser.username, true);
+        paramXmlHttp.open("GET", "/devcamp-lucky-dice/voucher-history?username=" + paramUser.username, true);
         paramXmlHttp.send();
 
     }
@@ -498,7 +498,7 @@
     //Hàm gọi Api lịch sử quà
     function callAPIHisPrize(paramUser, paramXmlHttp) {
 
-        paramXmlHttp.open("GET", "http://localhost:8000/devcamp-lucky-dice/prize-history?username=" + paramUser.username, true);
+        paramXmlHttp.open("GET", "/devcamp-lucky-dice/prize-history?username=" + paramUser.username, true);
         paramXmlHttp.send();
 
     }
